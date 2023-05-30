@@ -1,21 +1,24 @@
 from flask import Flask, redirect, request
 import os
+import random
+
 app = Flask(__name__)
 
-DL_WEBSITE_DOMAIN = os.environ.get('DL_WEBSITE_DOMAIN')
-FS_WEBSITE_DOMAIN = os.environ.get('FS_WEBSITE_DOMAIN', "https://fs.0x0.st")
-PORT = int(os.environ.get('PORT', 80))
+DL_WEBSITE_DOMAIN = os.environ.get("DL_WEBSITE_DOMAIN")
+FS_WEBSITE_DOMAIN = [x.strip() for x in os.environ.get("FS_WEBSITE_DOMAIN").split()]
+PORT = int(os.environ.get("PORT", 80))
 
 
-@app.route('/dl/')
+@app.route("/dl/")
 def home(path):
     url = request.url.replace(f"{request.host}/dl", DL_WEBSITE_DOMAIN)
     return redirect(url)
 
 
-@app.route('/fs/')
+@app.route("/fs/")
 def fs_home():
-    url = request.url.replace(f"{request.host}/fs", FS_WEBSITE_DOMAIN)
+    domain = random.choice(FS_WEBSITE_DOMAIN)
+    url = request.url.replace(f"{request.host}/fs", domain)
     return redirect(url)
 
 
