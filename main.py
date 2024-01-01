@@ -1,6 +1,8 @@
 from flask import Flask, redirect, request
 import os
 import random
+from dotenv import load_dotenv
+load_dotenv()
 
 app = Flask(__name__)
 
